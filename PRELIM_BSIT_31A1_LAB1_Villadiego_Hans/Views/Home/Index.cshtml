@@ -1,0 +1,54 @@
+﻿@{
+    string studentName = "mikhel angelo";
+    int score = 87;
+    bool isPassed = (score >= 75);
+    DateTime examDate = DateTime.Now;
+    decimal tuitionFee = 15500.75m;
+
+    string[] courses = { "Web Systems", "OOP", "DBMS", "UI/UX", "Networking" };
+    string result = "";
+    int count = 0;
+
+    ViewBag.Today = DateTime.Now.ToString("MMMM dd, yyyy");
+
+    foreach (string course in courses)
+    {
+        if (count > 0) result += ", ";
+        result += course;
+        count++;
+    }
+
+    ViewBag.Courses = result;
+    ViewBag.Count = count;
+}
+
+<div class="text-center">
+    <h1>Student Name: @studentName</h1>
+    <h2>Score: @score</h2>
+
+    @if (score >= 90)
+    {
+        <h3>Grade: A</h3>
+    }
+    else if (score >= 80)
+    {
+        <h3>Grade: B</h3>
+    }
+    else if (score >= 75)
+    {
+        <h3>Grade: C</h3>
+    }
+    else
+    {
+        <h3>Grade: F</h3>
+    }
+
+    <h3>Passed?: @(isPassed ? "Congratulations, you passed!" : "Better luck next time.")</h3>
+</div>
+
+<div>
+    <p><strong>Courses Taken: @result</strong></p>
+    <p><strong>Number of Courses: @count</strong></p>
+    <p><strong>Exam Date: @ViewBag.Today</strong></p>
+    <p><strong>Tuition Fee: ₱@tuitionFee</strong></p>
+</div>
