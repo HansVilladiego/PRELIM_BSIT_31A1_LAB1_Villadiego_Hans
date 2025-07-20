@@ -1,54 +1,110 @@
 ﻿@{
-    string studentName = "mikhel angelo";
+    string studentName = "Hans Villadiego";
     int score = 87;
     bool isPassed = (score >= 75);
     DateTime examDate = DateTime.Now;
     decimal tuitionFee = 15500.75m;
 
+    ViewBag.StudentName = studentName;
+    ViewBag.Score = score;
+    ViewBag.IsPassed = isPassed;
+    ViewBag.ExamDate = examDate;
+    ViewBag.TuitionFee = tuitionFee;
+
     string[] courses = { "Web Systems", "OOP", "DBMS", "UI/UX", "Networking" };
     string result = "";
     int count = 0;
-
     ViewBag.Today = DateTime.Now.ToString("MMMM dd, yyyy");
-
     foreach (string course in courses)
     {
         if (count > 0) result += ", ";
         result += course;
         count++;
     }
-
     ViewBag.Courses = result;
     ViewBag.Count = count;
+    Student me = new Student
+    {
+        Name = "Angelo Villadiego",
+        Age = 20,
+        Course = "BSIT"
+    };
+    ViewBag.Student = me;
+    List<Student> students = new List<Student>
+    {
+        new Student { Name = "Caleb Montano", Age = 23, Course = "BSIT" },
+        new Student { Name = "Christopher Tanega", Age = 21, Course = "BSCS" },
+        new Student { Name = "Nigel Ronquillo", Age = 22, Course = "BSA" }
+    };
+    ViewBag.Students = students;
 }
 
-<div class="text-center">
-    <h1>Student Name: @studentName</h1>
-    <h2>Score: @score</h2>
+<style>
+    body {
+        background-color: #BCC1BA;
+    }
+</style>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center">
+                <p class="mb-3"><strong>Student Name:</strong> @ViewBag.StudentName</p>
+                <p class="mb-3"><strong>Score:</strong> @ViewBag.score</p>
+                <p class="mb-3"><strong>Passed:</strong> @ViewBag.IsPassed</p>
+                <p class="mb-3"><strong>Exam Date and Time:</strong> @ViewBag.examDate</p>
+                <p class="mb-3"><strong>Tuition Fee:</strong> <span class="text-success">₱@ViewBag.TuitionFee</span></p>
 
-    @if (score >= 90)
-    {
-        <h3>Grade: A</h3>
-    }
-    else if (score >= 80)
-    {
-        <h3>Grade: B</h3>
-    }
-    else if (score >= 75)
-    {
-        <h3>Grade: C</h3>
-    }
-    else
-    {
-        <h3>Grade: F</h3>
-    }
+                @if (score >= 90)
+                {
+                    <p class="mb-3">Grade: A</p>
+                }
+                else if (score >= 80)
+                {
+                    <p class="mb-3">Grade: B</p>
+                }
+                else if (score >= 75)
+                {
+                    <p class="mb-3">Grade: C</p>
+                }
+                else
+                {
+                    <p class="mb-3">Grade: F</p>
+                }
 
-    <h3>Passed?: @(isPassed ? "Congratulations, you passed!" : "Better luck next time.")</h3>
+                <p class="mb-3"><strong>Passed?:</strong> @(isPassed ? "Congratulations, you passed!" : "Better luck next time.")</p>
+                <p class="mb-3"><strong>Courses Taken:</strong> @ViewBag.Courses</p>
+                <p class="mb-3"><strong>Number of Courses:</strong> @ViewBag.Count</p>
+                <p class="mb-3"><strong>Net Fee after 10% Discount:</strong> <span class="text-success">₱@ViewBag.NetFee</span></p>
+
+                <h4 class="mt-4">Today is: @ViewBag.Today</h4>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div>
-    <p><strong>Courses Taken: @result</strong></p>
-    <p><strong>Number of Courses: @count</strong></p>
-    <p><strong>Exam Date: @ViewBag.Today</strong></p>
-    <p><strong>Tuition Fee: ₱@tuitionFee</strong></p>
+    <h4>Student Details: @ViewBag.Student.Name - @ViewBag.Student.Age - @ViewBag.Student.Course</h4>
+
+    <h4>List of Students</h4>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>       
+                <th>Age</th>        
+                <th>Course</th>     
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in ViewBag.Students)
+            {
+                <tr>
+                    <td>@student.Name</td>  
+                    <td>@student.Age</td>    
+                    <td>@student.Course</td> 
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+

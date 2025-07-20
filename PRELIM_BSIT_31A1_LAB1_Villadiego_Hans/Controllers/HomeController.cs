@@ -15,10 +15,17 @@ namespace PRELIM_BSIT_31A1_LAB1_Villadiego_Hans.Controllers
 
         public IActionResult Index()
         {
+            decimal tuitionFee = 15500.75m;
+            decimal netFee = ComputeNetFee(tuitionFee, 10);
+            ViewBag.NetFee = netFee;
             return View();
         }
 
-        public IActionResult Privacy()
+        private decimal ComputeNetFee(decimal tuition, decimal discountPercent)
+        {
+            return tuition - (tuition * discountPercent / 100); 
+        }
+        public IActionResult AboutMe()
         {
             return View();
         }
